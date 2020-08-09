@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import UserCreateForm, UserLoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def user_creation_page(request):
     form = UserCreateForm(request.POST or None)
@@ -24,3 +24,8 @@ def login_page(request):
             return redirect("../note/")
 
     return render(request, "login.html", context)
+
+def logout_page(request):
+    logout(request)
+    context = {}
+    return redirect("../login/")

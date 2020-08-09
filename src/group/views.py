@@ -35,16 +35,18 @@ def group_manage_page(request, group_name):
         user_name = request.POST["user_name"]
         print(request.POST)
         obj = Group.objects.get(name = group_name)
+        is_in_group = obj.members.filter(username = user_name).exists()
         if option.lower() == "add":
-            if len(obj.members.get(username = user_name)) < 1:
+            if not is_in_group:
                 meme = Membership(person = User.objects.get(username = user_name), group = obj)
                 meme.save()
+            else:
+                print("already in group")
         else:
-            if obj.members.get(username = user_name):
-                print("here")
+            if is_in_group:
                 obj.members.remove((User.objects.get(username = user_name).id))
                 obj.save()
 
     template_name = "group_manage.html"
-    context = {}
+    context = {"members" : Group.objects.get(name = group_name).members.all(), "group_name": group_name}
     return render(request, template_name, context)

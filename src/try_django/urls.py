@@ -20,7 +20,7 @@ from note.views import sticky_note_detail_page, sticky_note_overview_page, stick
 
 
 urlpatterns = [
-    path("", home_page),
+    path('', home_page),
     path('admin/', admin.site.urls),
     path('about/', about_page),
     path('note/', include('note.urls')),

@@ -30,4 +30,11 @@
     </div>
   </div>
 </form>
+
+<h2> Members of: {{group_name}} </h2>
+{% for name in members %}
+<h3> {{name}} </h3>
+
+{% endfor %}
+
 {% endblock %}
